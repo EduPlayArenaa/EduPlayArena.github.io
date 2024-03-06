@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Matematika</title>
+    <link rel="stylesheet" href="style-mtk.css">
+</head>
+<body>
+   <video autoplay loop muted playsinline id="bgVideo">
+     <source src="woi6.mp4" type="video/mp4">
+     Browser Anda tidak mendukung tag video ini.
+   </video>
+    <div class="game-container">
+        <h2 id="question-title">EduPlay Arena</h2>
+        <div id="question"></div>
+        <form id="choicesForm"></form>
+        <button id="submitBtn">Submit</button>
+        <button id="skipBtn">Skip</button>
+    </div>
+   <script>
+let originalQuestions = [
+
+    {
+        question: "Siapa yang dikenal sebagai Bapak Matematika?",
+        choices: ["Isaac Newton", "Albert Einstein", "Euclid", "Pythagoras"],
+        answer: "Euclid"
+    },
+    {
+        question: "Berapakah jumlah sudut dalam segitiga?",
+        choices: ["180 derajat", "90 derajat", "360 derajat", "270 derajat"],
+        answer: "180 derajat"
+    },
+    {
+        question: "Apa nama bangun ruang yang memiliki 6 sisi berbentuk persegi?",
+        choices: ["Kubus", "Balok", "Prisma", "Piramida"],
+        answer: "Kubus"
+    },
+    {
+        question: "Berapakah hasil dari penjumlahan semua sudut dalam segiempat?",
+        choices: ["360 derajat", "180 derajat", "90 derajat", "270 derajat"],
+        answer: "360 derajat"
+    },
+    {
+        question: "Rumus luas lingkaran adalah?",
+        choices: ["πr²", "2πr", "πd", "r/2π"],
+        answer: "πr²"
+    },
+    {
+        question: "Bilangan prima adalah bilangan yang habis dibagi oleh...",
+        choices: ["1 dan bilangan itu sendiri", "2 dan 3", "Semua bilangan", "1 dan 0"],
+        answer: "1 dan bilangan itu sendiri"
+    },
+    {
+        question: "Apa nama teorema yang digunakan untuk menghitung panjang sisi miring pada segitiga siku-siku?",
+        choices: ["Teorema Pythagoras", "Teorema Euclid", "Hukum Cosinus", "Hukum Sinus"],
+        answer: "Teorema Pythagoras"
+    },
+    {
+        question: "0! (0 factorial) sama dengan berapa?",
+        choices: ["1", "0", "Tidak terdefinisi", "∞ (tak terhingga)"],
+        answer: "1"
+    },
+    {
+        question: "Berapakah nilai dari 'e' dalam matematika, yang dikenal sebagai basis logaritma alami, hingga tiga angka desimal?",
+        choices: ["2.718", "3.142", "1.618", "0.577"],
+        answer: "2.718"
+    },
+    {
+        question: "Siapa matematikawan yang mengemukakan konsep geometri analitik?",
+        choices: ["René Descartes", "Leonhard Euler", "Carl Friedrich Gauss", "Blaise Pascal"],
+        answer: "René Descartes"
+    }, 
+
+    {
+        question: "Apa nama rumus yang digunakan untuk menemukan akar-akar polinomial?",
+        choices: ["Rumus Quadratic", "Rumus Binomial", "Rumus Heron", "Rumus Euler"],
+        answer: "Rumus Quadratic"
+    },
+    {
+        question: "Dalam teori bilangan, 1 dianggap sebagai...",
+        choices: ["Bilangan prima", "Bukan bilangan prima", "Bilangan komposit", "Bilangan irasional"],
+        answer: "Bukan bilangan prima"
+    },
+    {
+        question: "Berapakah jumlah sisi pada sebuah oktahedron?",
+        choices: ["8", "6", "12", "4"],
+        answer: "8"
+    },
+    {
+        question: "Konstanta matematika 'pi' digunakan untuk menghitung...",
+        choices: ["Keliling lingkaran", "Luas persegi", "Volume kubus", "Luas segitiga"],
+        answer: "Keliling lingkaran"
+    },
+    {
+        question: "Apa nama teorema yang menyatakan bahwa setiap bilangan genap lebih besar dari 2 bisa ditulis sebagai jumlah dua bilangan prima?",
+        choices: ["Teorema Terakhir Fermat", "Teorema Bilangan Prima", "Konjektur Goldbach", "Hukum Bilangan Besar"],
+        answer: "Konjektur Goldbach"
+    },
+    {
+        question: "Dalam matematika, apa itu 'integral'?",
+        choices: ["Operasi penjumlahan", "Operasi pembagian", "Operasi pengurangan", "Operasi pemecahan"],
+        answer: "Operasi penjumlahan"
+    },
+    {
+        question: "Apa nama cabang matematika yang mempelajari pola, struktur, dan hubungan menggunakan simbol dan aturan?",
+        choices: ["Geometri", "Aljabar", "Kalkulus", "Statistika"],
+        answer: "Aljabar"
+    },
+    {
+        question: "Berapakah hasil dari 0 pangkat 0?",
+        choices: ["1", "0", "Tidak terdefinisi", "∞ (tak terhingga)"],
+        answer: "Tidak terdefinisi"
+    },
+    {
+        question: "Siapa yang dikenal sebagai pencipta kalkulus?",
+        choices: ["Isaac Newton dan Gottfried Wilhelm Leibniz", "Euclid", "Pythagoras", "Albert Einstein"],
+        answer: "Isaac Newton dan Gottfried Wilhelm Leibniz"
+    },
+    {
+        question: "Apa nama proses matematika yang digunakan untuk menemukan nilai terkecil atau terbesar yang memenuhi suatu kondisi?",
+        choices: ["Pemrograman linear", "Optimisasi", "Aljabar linier", "Analisis kompleks"],
+        answer: "Optimisasi"
+    }, 
+    {
+        question: "Berapa derajat sudut dalam satu putaran penuh?",
+        choices: ["180°", "360°", "90°", "270°"],
+        answer: "360°"
+    },
+    {
+        question: "Apa nama teori yang digunakan untuk menyelesaikan persamaan non-linear?",
+        choices: ["Teori Bilangan", "Teori Grup", "Analisis Real", "Teori Galois"],
+        answer: "Teori Galois"
+    },
+    {
+        question: "Siapa matematikawan yang dikenal dengan seri ekspansi eˣ?",
+        choices: ["Isaac Newton", "Leonhard Euler", "Carl Friedrich Gauss", "Bernhard Riemann"],
+        answer: "Leonhard Euler"
+    },
+    {
+        question: "Berapakah jumlah sudut dalam segitiga?",
+        choices: ["180°", "360°", "90°", "270°"],
+        answer: "180°"
+    },
+    {
+        question: "Apa itu deret Fibonacci?",
+        choices: ["Deret bilangan dimana setiap bilangan adalah jumlah dua bilangan sebelumnya", "Deret bilangan prima", "Deret bilangan genap", "Deret bilangan ganjil"],
+        answer: "Deret bilangan dimana setiap bilangan adalah jumlah dua bilangan sebelumnya"
+    },
+    {
+        question: "Apa nama poligon dengan lima sisi?",
+        choices: ["Pentagon", "Hexagon", "Octagon", "Quadrilateral"],
+        answer: "Pentagon"
+    },
+    {
+        question: "Berapakah nilai dari π (pi) hingga tiga angka desimal?",
+        choices: ["3.141", "2.718", "1.618", "1.414"],
+        answer: "3.141"
+    },
+    {
+        question: "Apa itu persamaan diferensial?",
+        choices: ["Persamaan yang melibatkan derivatif dari satu atau lebih variabel", "Persamaan yang menghubungkan variabel dengan konstanta", "Persamaan yang digunakan untuk menghitung luas", "Persamaan yang menggambarkan pola bilangan"],
+        answer: "Persamaan yang melibatkan derivatif dari satu atau lebih variabel"
+    },
+    {
+        question: "Berapa jumlah diagonal yang dapat ditarik dari sudut sebuah oktagon?",
+        choices: ["20", "28", "12", "16"],
+        answer: "20"
+    },
+    {
+        question: "Apa nama metode yang digunakan untuk mencari akar numerik suatu fungsi?",
+        choices: ["Metode Eliminasi Gauss", "Metode Newton-Raphson", "Metode Simpleks", "Metode Euler"],
+        answer: "Metode Newton-Raphson"
+    }, 
+
+    {
+        question: "Jika sebuah apel diiris menjadi 4 bagian sama besar, berapa irisan yang diperlukan?",
+        choices: ["3 irisan", "4 irisan", "2 irisan", "1 irisan"],
+        answer: "2 irisan"
+    },
+    {
+        question: "Berapa jumlah sudut dalam segitiga?",
+        choices: ["90°", "180°", "270°", "360°"],
+        answer: "180°"
+    },
+    {
+        question: "Ibu membeli 3 lusin telur. Berapa jumlah telur yang dibeli Ibu?",
+        choices: ["36", "24", "48", "12"],
+        answer: "36"
+    }, 
+
+    {
+        question: "Apa hasil dari 8³?",
+        choices: ["512", "64", "256", "1024"],
+        answer: "512"
+    },
+    {
+        question: "Apa nama poligon dengan 8 sisi?",
+        choices: ["Hexagon", "Octagon", "Pentagon", "Decagon"],
+        answer: "Octagon"
+    },
+    {
+        question: "Berapa hasil dari persamaan 2x + 5 = 15?",
+        choices: ["5", "10", "7", "3"],
+        answer: "5"
+    }, 
+    
+    {
+        question: "Apa turunan pertama dari f(x) = 3x²?",
+        choices: ["6x", "6x²", "3x", "9x"],
+        answer: "6x"
+    },
+    {
+        question: "Apa integral dari f(x) = 4x dx?",
+        choices: ["2x² + C", "4x² + C", "8x + C", "2x + C"],
+        answer: "2x² + C"
+    },
+    {
+        question: "Jika sin(θ) = 1/2, maka berapa nilai θ?",
+        choices: ["30°", "45°", "60°", "90°"],
+        answer: "30°"
+    }, 
+    
+    {
+        question: "5 dikali 8 sama dengan berapa?",
+        choices: ["40", "13", "45", "30"],
+        answer: "40"
+    },
+    {
+        question: "Berapakah nilai dari 9 dikurangi 4?",
+        choices: ["5", "13", "4", "6"],
+        answer: "5"
+    },
+    {
+        question: "Berapa banyak sisi yang dimiliki oleh segi empat?",
+        choices: ["4", "6", "8", "5"],
+        answer: "4"
+    }, 
+
+    {
+        question: "Berapakah hasil dari persamaan kuadrat x² - 5x + 6 = 0?",
+        choices: ["x = 2 atau x = 3", "x = 1 atau x = 6", "x = -2 atau x = -3", "x = 0"],
+        answer: "x = 2 atau x = 3"
+    },
+    {
+        question: "Berapakah luas lingkaran dengan jari-jari 7 cm? (π = 22/7)",
+        choices: ["154 cm²", "49 cm²", "14 cm²", "88 cm²"],
+        answer: "154 cm²"
+    },
+    {
+        question: "Berapa nilai dari 5! (5 faktorial)?",
+        choices: ["120", "60", "24", "30"],
+        answer: "120"
+    }, 
+    
+    {
+        question: "Apa limit dari (2x² - 4x) ketika x mendekati 2?",
+        choices: ["4", "0", "8", "-4"],
+        answer: "4"
+    },
+    {
+        question: "Jika vektor A = (3, 4) dan vektor B = (4, -3), berapakah hasil dari A.B?",
+        choices: ["0", "24", "-12", "25"],
+        answer: "0"
+    },
+    {
+        question: "Apa rumus umum untuk mencari luas permukaan bola?",
+        choices: ["4πr²", "πr²", "2πr³", "4/3πr³"],
+        answer: "4πr²"
+    }, 
+
+    {
+        question: "Jika sebuah kereta api berangkat pukul 14:30 dan tiba pukul 18:45, berapa lama perjalanan kereta api tersebut?",
+        choices: ["4 jam 15 menit", "4 jam 30 menit", "3 jam 45 menit", "5 jam"],
+        answer: "4 jam 15 menit"
+    },
+    {
+        question: "Sebuah kotak memiliki panjang 8 cm, lebar 7 cm, dan tinggi 5 cm. Berapa volume kotak tersebut?",
+        choices: ["280 cm³", "300 cm³", "350 cm³", "400 cm³"],
+        answer: "280 cm³"
+    },
+    {
+        question: "Berapa jumlah sisi pada dua buah kubus?",
+        choices: ["12", "10", "14", "16"],
+        answer: "12"
+    }, 
+    
+    {
+        question: "Berapakah hasil dari 3 pangkat 4?",
+        choices: ["81", "64", "12", "27"],
+        answer: "81"
+    },
+    {
+        question: "Jika sudut A dan B adalah sudut berpelurus dan besar sudut A adalah 40 derajat, berapa besar sudut B?",
+        choices: ["140 derajat", "130 derajat", "150 derajat", "120 derajat"],
+        answer: "140 derajat"
+    },
+    {
+        question: "Berapa nilai median dari kumpulan data berikut: 3, 7, 9, 5, 4?",
+        choices: ["5", "4", "7", "6"],
+        answer: "5"
+    }, 
+    
+    {
+        question: "Diberikan fungsi f(x) = x² - 3x + 2. Berapakah nilai dari f(5)?",
+        choices: ["12", "22", "32", "42"],
+        answer: "12"
+    },
+    {
+        question: "Berapakah integral dari fungsi f(x) = 3x²?",
+        choices: ["x³ + C", "x³/3 + C", "x²/3 + C", "x³/2 + C"],
+        answer: "x³ + C"
+    },
+    {
+        question: "Dalam trigonometri, berapakah nilai sin 30°?",
+        choices: ["1/2", "√2/2", "√3/2", "1/√2"],
+        answer: "1/2"
+    }, 
+    
+    {
+        question: "5 dikali 6 sama dengan...",
+        choices: ["11", "30", "25", "31"],
+        answer: "30"
+    },
+    {
+        question: "Berapakah hasil dari 50 dibagi 5?",
+        choices: ["5", "10", "15", "20"],
+        answer: "10"
+    },
+    {
+        question: "Sebuah segitiga siku-siku memiliki panjang sisi alas 3 cm dan tinggi 4 cm. Berapa panjang sisi miringnya?",
+        choices: ["5 cm", "7 cm", "6 cm", "8 cm"],
+        answer: "5 cm"
+    }, 
+    
+    {
+        question: "Suatu fungsi linier memiliki gradien 2 dan melalui titik (1,2). Persamaan garisnya adalah...",
+        choices: ["y = 2x + 2", "y = 2x + 0", "y = 2x - 1", "y = 2x + 1"],
+        answer: "y = 2x + 0"
+    },
+    {
+        question: "Sebuah prisma segitiga memiliki luas alas 24 cm² dan tinggi 10 cm. Berapakah volume prisma tersebut?",
+        choices: ["240 cm³", "120 cm³", "340 cm³", "140 cm³"],
+        answer: "240 cm³"
+    },
+    {
+        question: "Diketahui nilai x yang memenuhi 2x + 3 = 11 adalah...",
+        choices: ["4", "3", "5", "6"],
+        answer: "4"
+    }, 
+   
+    {
+        question: "Limit fungsi f(x) = (2x² - 8)/(x - 2) untuk x mendekati 2 adalah...",
+        choices: ["4", "0", "2", "Tak terdefinisi"],
+        answer: "4"
+    },
+    {
+        question: "Jika sin x = 1/2 dan 0° < x < 90°, maka nilai x adalah...",
+        choices: ["30°", "45°", "60°", "90°"],
+        answer: "30°"
+    },
+    {
+        question: "Diketahui matriks A = [2, 4; 5, 7]. Invers dari matriks A adalah...",
+        choices: ["[7, -4; -5, 2]", "[-7, 4; 5, -2]", "[7, 5; 4, 2]", "[-7, -5; -4, -2]"],
+        answer: "[7, -4; -5, 2]"
+    }, 
+  
+    {
+        question: "Sebuah lingkaran memiliki diameter 14 cm. Berapakah luas lingkaran tersebut? (Gunakan π = 22/7)",
+        choices: ["154 cm²", "308 cm²", "77 cm²", "616 cm²"],
+        answer: "154 cm²"
+    },
+    {
+        question: "Jika sebuah buku teks berharga Rp80.000,00 dan diskon 10%, maka harga setelah diskon adalah...",
+        choices: ["Rp72.000,00", "Rp70.000,00", "Rp68.000,00", "Rp75.000,00"],
+        answer: "Rp72.000,00"
+    },
+    {
+        question: "Berapakah hasil dari 3 pangkat 3?",
+        choices: ["9", "27", "81", "6"],
+        answer: "27"
+    }, 
+    
+    {
+        question: "Persamaan garis yang melalui titik (2,3) dan memiliki gradien 3 adalah...",
+        choices: ["y = 3x + 3", "y = 3x - 3", "y = 3x + 9", "y = 3x - 9"],
+        answer: "y = 3x - 3"
+    },
+    {
+        question: "Sebuah tabung memiliki jari-jari alas 7 cm dan tinggi 10 cm. Berapakah volume tabung tersebut? (Gunakan π = 22/7)",
+        choices: ["1540 cm³", "2200 cm³", "770 cm³", "154 cm³"],
+        answer: "1540 cm³"
+    },
+    {
+        question: "Peluang munculnya mata dadu genap dalam satu lemparan adalah...",
+        choices: ["1/2", "1/3", "1/6", "2/3"],
+        answer: "1/2"
+    }, 
+    
+    {
+        question: "Integral dari fungsi f(x) = 3x² adalah...",
+        choices: ["x³ + C", "x³/3 + C", "3x³ + C", "x³/3"],
+        answer: "x³ + C"
+    },
+    {
+        question: "Jika deret geometri memiliki rasio 2 dan suku pertama 3, maka suku ketiga adalah...",
+        choices: ["12", "6", "24", "18"],
+        answer: "12"
+    },
+    {
+        question: "Nilai dari cos 60° adalah...",
+        choices: ["√3/2", "1/2", "0", "√2/2"],
+        answer: "1/2"
+    }, 
+    ];
+
+  let questions = [...originalQuestions];
+        let currentLevel = 0;
+        let score = 5;
+        let displayedQuestions = [];
+        let currentQuestion;
+
+        function getRandomQuestion() {
+            if (questions.length === 0) {
+                questions = [...originalQuestions];
+                displayedQuestions = [];
+            }
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            const selectedQuestion = questions.splice(randomIndex, 1)[0];
+            displayedQuestions.push(selectedQuestion);
+            return selectedQuestion;
+        }
+
+        function displayQuestion() {
+            if(currentLevel > 20) {
+                localStorage.setItem("finalScore", score);
+                window.location.href = 'matematika3.html';
+                return;
+            }
+
+            currentQuestion = getRandomQuestion();
+            const questionEl = document.getElementById("question");
+            const choicesForm = document.getElementById("choicesForm");
+            questionEl.innerHTML = `Level ${currentLevel}: ${currentQuestion.question}`;
+
+            choicesForm.innerHTML = '';
+
+            currentQuestion.choices.forEach(choice => {
+                const label = document.createElement("label");
+                label.innerHTML = `<input type="radio" name="choice" value="${choice}"> ${choice}`;
+                choicesForm.appendChild(label);
+            });
+        }
+
+        function checkAnswer() {
+            const selectedChoice = document.querySelector('input[name="choice"]:checked');
+            if (!selectedChoice) {
+                alert("Silakan pilih jawaban.");
+                return;
+            }
+
+            if (selectedChoice.value === currentQuestion.answer) {
+                score += 5;
+                currentLevel++;
+                displayQuestion();
+            } else {
+                if (currentLevel <= 10) {
+                    alert(`Salah! Jawaban yang benar adalah "${currentQuestion.answer}". Anda kembali ke level 1 dengan skor 0.`);
+                    resetGame();
+                } else {
+                    alert(`Salah! Jawaban yang benar adalah "${currentQuestion.answer}". Anda kembali ke level 1 dengan skor 0.`);
+                    resetGame();
+                }
+            }
+        }
+
+        function skipLevel() {
+            currentLevel++;
+            if (currentLevel > 20) {
+                window.location.href = 'matematika3.html';
+            } else {
+                displayQuestion();
+            }
+        }
+
+        function resetGame() {
+            currentLevel = 1;
+            score = 0;
+            questions = [...originalQuestions];
+            displayedQuestions = [];
+            displayQuestion();
+        }
+
+        document.getElementById("submitBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            checkAnswer();
+        });
+
+        document.getElementById("skipBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            skipLevel();
+        });
+
+        document.getElementById("resetBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            resetGame();
+        });
+
+        window.onload = displayQuestion;
+    </script>
+</body>
+</html>

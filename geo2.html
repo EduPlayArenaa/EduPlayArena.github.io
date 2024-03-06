@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Geografi</title>
+    <link rel="stylesheet" href="style-geo.css">
+</head>
+<body>
+   <video autoplay loop muted playsinline id="bgVideo">
+     <source src="woi6.mp4" type="video/mp4">
+     Browser Anda tidak mendukung tag video ini.
+   </video>
+    <div class="game-container">
+        <h2 id="question-title">EduPlay Arena</h2>
+        <div id="question"></div>
+        <form id="choicesForm"></form>
+        <button id="submitBtn">Submit</button>
+        <button id="skipBtn">Skip</button>
+    </div>
+   <script>
+let originalQuestions =   [
+  {
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat proses pelapukan dan pengikisan oleh air hujan?",
+    choices: ["Karst", "Delta", "Gurun", "Oasis"],
+    answer: "Karst"
+},
+{
+    question: "Apa nama garis khayal yang membagi bumi menjadi dua belahan utara dan selatan?",
+    choices: ["Garis khatulistiwa", "Garis lintang", "Garis bujur", "Garis balik"],
+    answer: "Garis khatulistiwa"
+},
+{
+    question: "Apa nama lapisan atmosfer yang berfungsi sebagai pelindung bumi dari radiasi ultraviolet?",
+    choices: ["Troposfer", "Stratosfer", "Mesosfer", "Ozonosfer"],
+    answer: "Ozonosfer"
+},
+{
+    question: "Apa nama pergerakan lempeng bumi yang menyebabkan terjadinya gempa bumi dan gunung berapi?",
+    choices: ["Tektonik", "Vulkanik", "Sedimentasi", "Erosi"],
+    answer: "Tektonik"
+},
+{
+    question: "Apa nama wilayah di Indonesia yang termasuk dalam sabuk gunung api Pasifik?",
+    choices: ["Sumatera", "Jawa", "Sulawesi", "Semua jawaban benar"],
+    answer: "Semua jawaban benar"
+},
+{
+    question: "Apa nama proses perubahan bentuk air dari cair menjadi gas?",
+    choices: ["Penguapan", "Pembekuan", "Kondensasi", "Sublimasi"],
+    answer: "Penguapan"
+},
+{
+    question: "Apa nama iklim yang ditandai dengan curah hujan tinggi sepanjang tahun dan suhu rata-rata di atas 18°C?",
+    choices: ["Iklim tropis", "Iklim subtropis", "Iklim sedang", "Iklim kutub"],
+    answer: "Iklim tropis"
+},
+{
+    question: "Apa nama angin musiman yang bertiup dari daratan ke laut pada musim kemarau di Indonesia?",
+    choices: ["Angin monsun barat", "Angin monsun timur", "Angin pasat", "Angin puyuh"],
+    answer: "Angin monsun timur"
+},
+{
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat endapan lumpur dan pasir di muara sungai?",
+    choices: ["Tanjung", "Teluk", "Delta", "Lautan"],
+    answer: "Delta"
+},
+{
+    question: "Apa nama negara yang memiliki luas wilayah terbesar di dunia?",
+    choices: ["Rusia", "Kanada", "Cina", "Amerika Serikat"],
+    answer: "Rusia"
+}, 
+{
+    question: "Apa nama proses perubahan bentuk air dari gas menjadi cair?",
+    choices: ["Penguapan", "Pembekuan", "Kondensasi", "Sublimasi"],
+    answer: "Kondensasi"
+},
+{
+    question: "Apa nama benua yang memiliki luas wilayah terkecil di dunia?",
+    choices: ["Asia", "Afrika", "Australia", "Antartika"],
+    answer: "Australia"
+},
+{
+    question: "Apa nama gunung tertinggi di dunia yang terletak di perbatasan Nepal dan Tibet?",
+    choices: ["Gunung Everest", "Gunung K2", "Gunung Kilimanjaro", "Gunung Fuji"],
+    answer: "Gunung Everest"
+},
+{
+    question: "Apa nama samudra yang terletak di antara benua Amerika, Afrika, dan Eropa?",
+    choices: ["Samudra Atlantik", "Samudra Pasifik", "Samudra Hindia", "Samudra Arktik"],
+    answer: "Samudra Atlantik"
+},
+{
+    question: "Apa nama ibu kota negara Indonesia?",
+    choices: ["Jakarta", "Bandung", "Surabaya", "Medan"],
+    answer: "Jakarta"
+},
+{
+    question: "Apa nama pulau terbesar di Indonesia yang juga merupakan pulau terbesar ketiga di dunia?",
+    choices: ["Pulau Jawa", "Pulau Sumatera", "Pulau Kalimantan", "Pulau Papua"],
+    answer: "Pulau Kalimantan"
+},
+{
+    question: "Apa nama sungai terpanjang di dunia yang mengalir di benua Amerika Selatan?",
+    choices: ["Sungai Nil", "Sungai Amazon", "Sungai Yangtze", "Sungai Mekong"],
+    answer: "Sungai Amazon"
+},
+{
+    question: "Apa nama gurun pasir terluas di dunia yang terletak di benua Afrika?",
+    choices: ["Gurun Sahara", "Gurun Gobi", "Gurun Kalahari", "Gurun Thar"],
+    answer: "Gurun Sahara"
+},
+{
+    question: "Apa nama negara kepulauan yang terletak di tengah Samudra Pasifik dan terkenal dengan keindahan alamnya?",
+    choices: ["Maladewa", "Filipina", "Hawaii", "Malaysia"],
+    answer: "Hawaii"
+},
+{
+    question: "Apa nama fenomena alam yang terjadi akibat pemanasan global dan menyebabkan mencairnya es di kutub?",
+    choices: ["Efek rumah kaca", "Pergeseran musim", "El Nino", "La Nina"],
+    answer: "Efek rumah kaca"
+}, 
+{
+    question: "Apa nama negara yang terletak di antara dua benua, yaitu Eropa dan Asia?",
+    choices: ["Turki", "Mesir", "Rusia", "Yunani"],
+    answer: "Turki"
+},
+{
+    question: "Apa nama danau terdalam di dunia yang terletak di perbatasan Rusia dan Mongolia?",
+    choices: ["Danau Baikal", "Danau Victoria", "Danau Toba", "Danau Titikaka"],
+    answer: "Danau Baikal"
+},
+{
+    question: "Apa nama gugusan pulau di Indonesia yang terbentuk akibat letusan gunung berapi Krakatau pada tahun 1883?",
+    choices: ["Kepulauan Seribu", "Kepulauan Anambas", "Kepulauan Sunda Kecil", "Kepulauan Sunda Besar"],
+    answer: "Kepulauan Sunda Kecil"
+},
+{
+    question: "Apa nama ibu kota negara Prancis yang juga merupakan kota terbesar dan terpadat di negara tersebut?",
+    choices: ["Paris", "Lyon", "Marseille", "Nice"],
+    answer: "Paris"
+},
+{
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat proses pengangkatan oleh gaya tektonik?",
+    choices: ["Dataran tinggi", "Dataran rendah", "Lembah", "Cekungan"],
+    answer: "Dataran tinggi"
+},
+{
+    question: "Apa nama benua yang terletak di kutub selatan bumi dan ditutupi oleh es sepanjang tahun?",
+    choices: ["Asia", "Afrika", "Australia", "Antartika"],
+    answer: "Antartika"
+},
+{
+    question: "Apa nama hutan hujan tropis terluas di dunia yang terletak di benua Amerika Selatan?",
+    choices: ["Hutan Amazon", "Hutan Kongo", "Hutan Kalimantan", "Hutan Sumatera"],
+    answer: "Hutan Amazon"
+},
+{
+    question: "Apa nama negara yang memiliki jumlah penduduk terbanyak di dunia?",
+    choices: ["Cina", "India", "Amerika Serikat", "Indonesia"],
+    answer: "Cina"
+},
+{
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat proses pengendapan oleh air sungai atau laut?",
+    choices: ["Tanjung", "Teluk", "Delta", "Lautan"],
+    answer: "Delta"
+},
+{
+    question: "Apa nama fenomena alam yang terjadi akibat perbedaan tekanan udara antara daratan dan laut?",
+    choices: ["Angin laut", "Angin darat", "Angin monsun", "Semua jawaban benar"],
+    answer: "Semua jawaban benar"
+}, 
+{
+    question: "Apa nama negara yang terletak di ujung selatan benua Amerika dan memiliki ibu kota bernama Santiago?",
+    choices: ["Chili", "Argentina", "Uruguay", "Paraguay"],
+    answer: "Chili"
+},
+{
+    question: "Apa nama gugusan pulau di Indonesia yang terletak di sebelah timur Pulau Sulawesi dan memiliki ibu kota bernama Ambon?",
+    choices: ["Kepulauan Maluku", "Kepulauan Nusa Tenggara", "Kepulauan Riau", "Kepulauan Bangka Belitung"],
+    answer: "Kepulauan Maluku"
+},
+{
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat proses pengangkutan dan penumpukan oleh angin?",
+    choices: ["Bukit pasir", "Gurun pasir", "Padang rumput", "Oasis"],
+    answer: "Bukit pasir"
+},
+{
+    question: "Apa nama ibu kota negara Jepang yang juga merupakan kota terpadat di dunia?",
+    choices: ["Tokyo", "Osaka", "Kyoto", "Nagoya"],
+    answer: "Tokyo"
+},
+{
+    question: "Apa nama benua yang terletak di kutub utara bumi dan ditutupi oleh es sebagian besar tahun?",
+    choices: ["Asia", "Afrika", "Australia", "Antartika"],
+    answer: "Antartika"
+},
+{
+    question: "Apa nama sungai terpanjang di Indonesia yang mengalir di Pulau Kalimantan?",
+    choices: ["Sungai Kapuas", "Sungai Mahakam", "Sungai Barito", "Sungai Musi"],
+    answer: "Sungai Kapuas"
+},
+{
+    question: "Apa nama negara yang memiliki jumlah pulau terbanyak di dunia?",
+    choices: ["Indonesia", "Filipina", "Maladewa", "Jepang"],
+    answer: "Indonesia"
+},
+{
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat proses pelipatan oleh gaya tektonik?",
+    choices: ["Pegunungan", "Dataran tinggi", "Lembah", "Cekungan"],
+    answer: "Pegunungan"
+},
+{
+    question: "Apa nama danau buatan terbesar di dunia yang terletak di perbatasan Ghana, Burkina Faso, dan Pantai Gading?",
+    choices: ["Danau Volta", "Danau Victoria", "Danau Chad", "Danau Tanganyika"],
+    answer: "Danau Volta"
+},
+{
+    question: "Apa nama fenomena alam yang terjadi akibat adanya perbedaan suhu dan tekanan udara di daerah khatulistiwa?",
+    choices: ["Angin muson", "Angin pasat", "Angin puyuh", "Angin siklon"],
+    answer: "Angin pasat"
+}, 
+{
+    question: "Apa nama negara yang terletak di Asia Tenggara dan memiliki ibu kota bernama Bangkok?",
+    choices: ["Thailand", "Vietnam", "Kamboja", "Laos"],
+    answer: "Thailand"
+},
+{
+    question: "Apa nama gugusan pulau di Indonesia yang terletak di sebelah barat Pulau Sumatera dan memiliki ibu kota bernama Banda Aceh?",
+    choices: ["Kepulauan Riau", "Kepulauan Bangka Belitung", "Kepulauan Nias", "Kepulauan Simeulue"],
+    answer: "Kepulauan Simeulue"
+},
+{
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat proses pengendapan oleh angin?",
+    choices: ["Bukit pasir", "Gurun pasir", "Padang rumput", "Oasis"],
+    answer: "Gurun pasir"
+},
+{
+    question: "Apa nama ibu kota negara Inggris yang juga merupakan kota terbesar dan terpenting di negara tersebut?",
+    choices: ["London", "Manchester", "Liverpool", "Birmingham"],
+    answer: "London"
+},
+{
+    question: "Apa nama benua yang terletak di sebelah timur benua Asia dan memiliki luas wilayah terbesar kedua di dunia?",
+    choices: ["Asia", "Afrika", "Australia", "Antartika"],
+    answer: "Afrika"
+},
+{
+    question: "Apa nama sungai terpanjang di Asia yang mengalir di Cina dan memiliki nama lain Huang He?",
+    choices: ["Sungai Nil", "Sungai Amazon", "Sungai Yangtze", "Sungai Kuning"],
+    answer: "Sungai Kuning"
+},
+{
+    question: "Apa nama negara yang memiliki bentuk menyerupai sepatu dan terletak di Eropa Selatan?",
+    choices: ["Italia", "Spanyol", "Portugal", "Prancis"],
+    answer: "Italia"
+},
+{
+    question: "Apa nama bentuk muka bumi yang terbentuk akibat proses pelipatan oleh gaya tektonik?",
+    choices: ["Pegunungan", "Dataran tinggi", "Lembah", "Cekungan"],
+    answer: "Pegunungan"
+},
+{
+    question: "Apa nama danau terbesar di dunia yang terletak di perbatasan Kazakhstan dan Rusia?",
+    choices: ["Danau Baikal", "Danau Victoria", "Danau Caspian", "Danau Superior"],
+    answer: "Danau Caspian"
+},
+{
+    question: "Apa nama fenomena alam yang terjadi akibat adanya perbedaan suhu dan tekanan udara di daerah kutub?",
+    choices: ["Angin muson", "Angin pasat", "Angin puyuh", "Angin kutub"],
+    answer: "Angin kutub"
+}, 
+];
+
+  let questions = [...originalQuestions];
+        let currentLevel = 0;
+        let score = 5;
+        let displayedQuestions = [];
+        let currentQuestion;
+
+        function getRandomQuestion() {
+            if (questions.length === 0) {
+                questions = [...originalQuestions];
+                displayedQuestions = [];
+            }
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            const selectedQuestion = questions.splice(randomIndex, 1)[0];
+            displayedQuestions.push(selectedQuestion);
+            return selectedQuestion;
+        }
+
+        function displayQuestion() {
+            if(currentLevel > 20) {
+                localStorage.setItem("finalScore", score);
+                window.location.href = 'geo3.html';
+                return;
+            }
+
+            currentQuestion = getRandomQuestion();
+            const questionEl = document.getElementById("question");
+            const choicesForm = document.getElementById("choicesForm");
+            questionEl.innerHTML = `Level ${currentLevel}: ${currentQuestion.question}`;
+
+            choicesForm.innerHTML = '';
+
+            currentQuestion.choices.forEach(choice => {
+                const label = document.createElement("label");
+                label.innerHTML = `<input type="radio" name="choice" value="${choice}"> ${choice}`;
+                choicesForm.appendChild(label);
+            });
+        }
+
+        function checkAnswer() {
+            const selectedChoice = document.querySelector('input[name="choice"]:checked');
+            if (!selectedChoice) {
+                alert("Silakan pilih jawaban.");
+                return;
+            }
+
+            if (selectedChoice.value === currentQuestion.answer) {
+                score += 5;
+                currentLevel++;
+                displayQuestion();
+            } else {
+                if (currentLevel <= 10) {
+                    alert(`Salah! Jawaban yang benar adalah "${currentQuestion.answer}". Anda kembali ke level 1 dengan skor 0.`);
+                    resetGame();
+                } else {
+                    alert(`Salah! Jawaban yang benar adalah "${currentQuestion.answer}". Anda kembali ke level 1 dengan skor 0.`);
+                    resetGame();
+                }
+            }
+        }
+
+        function skipLevel() {
+            currentLevel++;
+            if (currentLevel > 20) {
+                window.location.href = 'geo3.html';
+            } else {
+                displayQuestion();
+            }
+        }
+
+        function resetGame() {
+            currentLevel = 1;
+            score = 0;
+            questions = [...originalQuestions];
+            displayedQuestions = [];
+            displayQuestion();
+        }
+
+        document.getElementById("submitBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            checkAnswer();
+        });
+
+        document.getElementById("skipBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            skipLevel();
+        });
+
+        document.getElementById("resetBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            resetGame();
+        });
+
+        window.onload = displayQuestion;
+    </script>
+</body>
+</html>

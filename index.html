@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPlay Arena</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        #bgVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            background-size: cover;
+            overflow: hidden;
+        }
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .navbar .website-name {
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            align-items: center; /* Tambahkan ini untuk align logo dan teks */
+        }
+        .navbar img { /* Atur ukuran logo */
+            height: 40px; /* Atur tinggi logo sesuai kebutuhan */
+            margin-right: 10px; /* Jarak antara logo dan teks */
+        }
+        .icon-play {
+            width: 180px;
+            height: 180px;
+            background: url('ikon.png') no-repeat center center;
+            background-size: cover;
+            cursor: pointer;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: space-around;
+        }
+        .social-icons div {
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .whatsapp { background: url('whatsapp.png') no-repeat center center; }
+        .youtube { background: url('youtube.png') no-repeat center center; }
+        .instagram { background: url('instagram.png') no-repeat center center; }
+
+        @media (max-width: 768px) {
+            .icon-play {
+                width: 100px;
+                height: 100px;
+            }
+            .social-icons div {
+                width: 25px;
+                height: 25px;
+            }
+            .navbar .website-name {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+  <video autoplay loop muted playsinline id="bgVideo">
+     <source src="bg2.mp4" type="video/mp4">
+     Browser Anda tidak mendukung tag video ini.
+   </video>
+    <div class="navbar">
+        <div class="website-name">
+            <img src="logo1.png" alt="Logo"> <!-- Tambahkan ini -->
+            EduPlay Arena
+        </div>
+        <div class="social-icons">
+            <div class="whatsapp" onclick="window.location.href='https://api.whatsapp.com/send/?phone=6281515505072&text&type=phone_number&app_absent=0'"></div>
+            <div class="youtube" onclick="window.location.href='https://youtube.com/@FarisKwece?si=FlliwpMqwUv5EZIS/'"></div>
+            <div class="instagram" onclick="window.location.href='https://www.instagram.com/xyxoaz_?igsh=ODh5anJocmwwbnNh/'"></div>
+        </div>
+    </div>
+    <div class="icon-play" onclick="window.location.href='halaman2.html'"></div>
+    <iframe src="play-audio.html" frameborder="0"></iframe>
+ 
+</body>
+</html>

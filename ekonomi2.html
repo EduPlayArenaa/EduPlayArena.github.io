@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Ekonomi</title>
+    <link rel="stylesheet" href="style-eko.css">
+</head>
+<body>
+   <video autoplay loop muted playsinline id="bgVideo">
+     <source src="woi4.mp4" type="video/mp4">
+     Browser Anda tidak mendukung tag video ini.
+   </video>
+    <div class="game-container">
+        <h2 id="question-title">EduPlay Arena</h2>
+        <div id="question"></div>
+        <form id="choicesForm"></form>
+        <button id="submitBtn">Submit</button>
+        <button id="skipBtn">Skip</button>
+    </div>
+   <script>
+let originalQuestions =   [      {
+        question: "Apa fungsi utama uang?",
+        choices: ["Dekorasi", "Alat tukar", "Mainan", "Alat musik"],
+        answer: "Alat tukar"
+    },
+    {
+        question: "Mata uang apa yang digunakan di Amerika Serikat?",
+        choices: ["Euro", "Yen", "Dolar", "Pound"],
+        answer: "Dolar"
+    },
+    {
+        question: "Apa nama mata uang Uni Eropa?",
+        choices: ["Euro", "Dolar", "Pound", "Yen"],
+        answer: "Euro"
+    },
+    {
+        question: "Negara mana yang menggunakan Dinar sebagai mata uangnya?",
+        choices: ["Bahrain", "Indonesia", "Jepang", "Amerika Serikat"],
+        answer: "Bahrain"
+    },
+    {
+        question: "Apa itu GDP per kapita?",
+        choices: ["Pendapatan per orang", "Total utang pemerintah", "Inflasi tahunan", "Ekspor bersih"],
+        answer: "Pendapatan per orang"
+    },
+    {
+        question: "Apa fungsi dari uang sebagai penyimpan nilai?",
+        choices: ["Menyimpan kekayaan", "Pembayaran pajak", "Dekorasi", "Media pertukaran"],
+        answer: "Menyimpan kekayaan"
+    },
+    
+    {
+        question: "Apa yang dimaksud dengan rating kredit?",
+        choices: ["Skor untuk video game", "Penilaian terhadap kelayakan kredit peminjam", "Sistem penilaian untuk film", "Rating untuk aplikasi seluler"],
+        answer: "Penilaian terhadap kelayakan kredit peminjam"
+    }, 
+    {
+    question: "Apa itu obligasi pemerintah?",
+    choices: ["Utang yang diterbitkan oleh perusahaan", "Investasi di pasar saham", "Utang yang diterbitkan oleh pemerintah", "Mata uang digital"],
+    answer: "Utang yang diterbitkan oleh pemerintah"
+    },
+{
+    question: "Negara manakah yang mata uangnya bernama Rand?",
+    choices: ["Namibia", "Botswana", "Afrika Selatan", "Zimbabwe"],
+    answer: "Afrika Selatan"
+},
+{
+    question: "Apa itu portofolio investasi?",
+    choices: ["Koleksi saham perusahaan", "Kumpulan investasi di berbagai instrumen keuangan", "Dokumen legal investasi", "Portofolio seni"],
+    answer: "Kumpulan investasi di berbagai instrumen keuangan"
+},
+{
+    question: "Apa itu utang publik?",
+    choices: ["Total utang pribadi warga negara", "Total utang pemerintah daerah", "Total utang pemerintah pusat dan daerah", "Utang luar negeri negara"],
+    answer: "Total utang pemerintah pusat dan daerah"
+},
+{
+    question: "Apa yang dimaksud dengan pasar primer?",
+    choices: ["Pasar tempat saham diperdagangkan pertama kali", "Pasar tempat membeli bahan primer", "Pasar untuk jual beli saham yang sudah ada", "Pasar untuk produk pertanian"],
+    answer: "Pasar tempat saham diperdagangkan pertama kali"
+},
+{
+    question: "Apa itu IPO?",
+    choices: ["Penjualan saham perusahaan kepada publik untuk pertama kalinya", "Investasi Pribadi Online", "Identifikasi Produk Online", "Instrumen Pembayaran Otomatis"],
+    answer: "Penjualan saham perusahaan kepada publik untuk pertama kalinya"
+},
+{
+    question: "Negara manakah yang menggunakan Shekel?",
+    choices: ["Mesir", "Libanon", "Yordania", "Israel"],
+    answer: "Israel"
+},
+{
+    question: "Apa itu bear market?",
+    choices: ["Pasar dengan tren naik", "Pasar dengan tren turun", "Pasar yang stabil", "Pasar hewan"],
+    answer: "Pasar dengan tren turun"
+},
+{
+    question: "Apa yang dimaksud dengan rating kredit?",
+    choices: ["Skor untuk video game", "Penilaian terhadap kelayakan kredit peminjam", "Sistem penilaian untuk film", "Rating untuk aplikasi seluler"],
+    answer: "Penilaian terhadap kelayakan kredit peminjam"
+},
+{
+    question: "Mata uang apa yang digunakan di China?",
+    choices: ["Renminbi", "Yen", "Won", "Dolar"],
+    answer: "Renminbi"
+},
+{
+    question: "Apa itu IPO?",
+    choices: ["International Purchase Offer", "Initial Public Offering", "Immediate Payment Order", "Internal Profit Organization"],
+    answer: "Initial Public Offering"
+},
+{
+    question: "Apa itu bear market?",
+    choices: ["Pasar dengan tren harga naik", "Pasar dengan tren harga stabil", "Pasar dengan tren harga menurun", "Pasar khusus jual beli beruang"],
+    answer: "Pasar dengan tren harga menurun"
+},
+
+{
+    question: "Apa itu diversifikasi dalam investasi?",
+    choices: ["Investasi di satu aset untuk mengurangi risiko", "Pembagian investasi di berbagai aset untuk mengurangi risiko", "Investasi semua modal di saham", "Pembelian satu jenis obligasi saja"],
+    answer: "Pembagian investasi di berbagai aset untuk mengurangi risiko"
+},
+{
+    question: "Negara mana yang mata uangnya disebut Kuna?",
+    choices: ["Slovenia", "Kroasia", "Serbia", "Montenegro"],
+    answer: "Kroasia"
+},
+{
+    question: "Apa yang dimaksud dengan pajak langsung?",
+    choices: ["Pajak yang dibayar langsung ke pemerintah oleh konsumen", "Pajak yang dibebankan pada pembelian barang dan jasa", "Pajak yang dibayar melalui perantara", "Pajak atas pendapatan atau harta"],
+    answer: "Pajak yang dibayar langsung ke pemerintah oleh konsumen"
+},
+{
+    question: "Mata uang apa yang digunakan di Australia?",
+    choices: ["Dolar Australia", "Pound Australia", "Euro Australia", "Dolar"],
+    answer: "Dolar Australia"
+},
+{
+    question: "Apa itu nilai tukar mengambang?",
+    choices: ["Nilai tukar yang ditetapkan oleh pemerintah", "Nilai tukar yang ditentukan oleh pasar", "Nilai tukar tetap untuk semua mata uang", "Nilai tukar yang tidak pernah berubah"],
+    answer: "Nilai tukar yang ditentukan oleh pasar"
+},
+{
+    question: "Apa itu bailout?",
+    choices: ["Proses untuk menaikkan harga saham", "Bantuan finansial untuk mencegah kebangkrutan", "Pengenaan pajak baru oleh pemerintah", "Pembelian saham oleh perusahaan besar"],
+    answer: "Bantuan finansial untuk mencegah kebangkrutan"
+},
+{
+    question: "Negara manakah yang menggunakan Lira?",
+    choices: ["Yunani", "Turki", "Italia", "Spanyol"],
+    answer: "Turki"
+},
+{
+    question: "Apa yang dimaksud dengan pasar obligasi?",
+    choices: ["Pasar untuk jual beli mata uang", "Pasar untuk jual beli saham", "Pasar untuk jual beli utang", "Pasar untuk jual beli properti"],
+    answer: "Pasar untuk jual beli utang"
+},
+{
+    question: "Apa itu defisit perdagangan?",
+    choices: ["Ketika impor lebih besar dari ekspor", "Ketika ekspor lebih besar dari impor", "Ketika impor sama dengan ekspor", "Ketika ekspor dan impor tidak mempengaruhi ekonomi"],
+    answer: "Ketika impor lebih besar dari ekspor"
+},
+{
+    question: "Mata uang apa yang digunakan di Brasil?",
+    choices: ["Dolar Brasil", "Real", "Peso", "Euro"],
+    answer: "Real"
+},
+{
+    question: "Apa itu IPO?",
+    choices: ["Penjualan saham perusahaan kepada publik untuk pertama kalinya", "Investasi Pribadi Online", "Identifikasi Produk Online", "Instrumen Pembayaran Otomatis"],
+    answer: "Penjualan saham perusahaan kepada publik untuk pertama kalinya"
+},
+{
+    question: "Negara manakah yang menggunakan Shekel?",
+    choices: ["Mesir", "Libanon", "Yordania", "Israel"],
+    answer: "Israel"
+},
+{
+    question: "Apa itu bear market?",
+    choices: ["Pasar dengan tren naik", "Pasar dengan tren turun", "Pasar yang stabil", "Pasar hewan"],
+    answer: "Pasar dengan tren turun"
+},
+{
+    question: "Apa yang dimaksud dengan rating kredit?",
+    choices: ["Skor untuk video game", "Penilaian terhadap kelayakan kredit peminjam", "Sistem penilaian untuk film", "Rating untuk aplikasi seluler"],
+    answer: "Penilaian terhadap kelayakan kredit peminjam"
+},
+{
+    question: "Mata uang apa yang digunakan di China?",
+    choices: ["Renminbi", "Yen", "Won", "Dolar"],
+    answer: "Renminbi"
+},
+{
+    question: "Apa itu IPO?",
+    choices: ["International Purchase Offer", "Initial Public Offering", "Immediate Payment Order", "Internal Profit Organization"],
+    answer: "Initial Public Offering"
+},
+{
+    question: "Apa itu bear market?",
+    choices: ["Pasar dengan tren harga naik", "Pasar dengan tren harga stabil", "Pasar dengan tren harga menurun", "Pasar khusus jual beli beruang"],
+    answer: "Pasar dengan tren harga menurun"
+},
+
+{
+    question: "Apa itu diversifikasi dalam investasi?",
+    choices: ["Investasi di satu aset untuk mengurangi risiko", "Pembagian investasi di berbagai aset untuk mengurangi risiko", "Investasi semua modal di saham", "Pembelian satu jenis obligasi saja"],
+    answer: "Pembagian investasi di berbagai aset untuk mengurangi risiko"
+},
+{
+    question: "Negara mana yang mata uangnya disebut Kuna?",
+    choices: ["Slovenia", "Kroasia", "Serbia", "Montenegro"],
+    answer: "Kroasia"
+},
+{
+    question: "Apa yang dimaksud dengan pajak langsung?",
+    choices: ["Pajak yang dibayar langsung ke pemerintah oleh konsumen", "Pajak yang dibebankan pada pembelian barang dan jasa", "Pajak yang dibayar melalui perantara", "Pajak atas pendapatan atau harta"],
+    answer: "Pajak yang dibayar langsung ke pemerintah oleh konsumen"
+},
+{
+    question: "Mata uang apa yang digunakan di Australia?",
+    choices: ["Dolar Australia", "Pound Australia", "Euro Australia", "Dolar"],
+    answer: "Dolar Australia"
+},
+{
+    question: "Apa itu nilai tukar mengambang?",
+    choices: ["Nilai tukar yang ditetapkan oleh pemerintah", "Nilai tukar yang ditentukan oleh pasar", "Nilai tukar tetap untuk semua mata uang", "Nilai tukar yang tidak pernah berubah"],
+    answer: "Nilai tukar yang ditentukan oleh pasar"
+},
+{
+    question: "Apa itu bailout?",
+    choices: ["Proses untuk menaikkan harga saham", "Bantuan finansial untuk mencegah kebangkrutan", "Pengenaan pajak baru oleh pemerintah", "Pembelian saham oleh perusahaan besar"],
+    answer: "Bantuan finansial untuk mencegah kebangkrutan"
+},
+{
+    question: "Negara manakah yang menggunakan Lira?",
+    choices: ["Yunani", "Turki", "Italia", "Spanyol"],
+    answer: "Turki"
+},
+{
+    question: "Apa yang dimaksud dengan pasar obligasi?",
+    choices: ["Pasar untuk jual beli mata uang", "Pasar untuk jual beli saham", "Pasar untuk jual beli utang", "Pasar untuk jual beli properti"],
+    answer: "Pasar untuk jual beli utang"
+},
+{
+    question: "Apa itu defisit perdagangan?",
+    choices: ["Ketika impor lebih besar dari ekspor", "Ketika ekspor lebih besar dari impor", "Ketika impor sama dengan ekspor", "Ketika ekspor dan impor tidak mempengaruhi ekonomi"],
+    answer: "Ketika impor lebih besar dari ekspor"
+},
+{
+    question: "Mata uang apa yang digunakan di Brasil?",
+    choices: ["Dolar Brasil", "Real", "Peso", "Euro"],
+    answer: "Real"
+},
+{
+    question: "Apa itu bank sentral?",
+    choices: ["Bank komersial terbesar di sebuah negara", "Lembaga yang mengatur uang beredar dan suku bunga", "Bank yang memberikan pinjaman tanpa bunga", "Bank khusus untuk pemerintah"],
+    answer: "Lembaga yang mengatur uang beredar dan suku bunga"
+},
+{
+    question: "Apa itu depresi ekonomi?",
+    choices: ["Penurunan ringan aktivitas ekonomi", "Penurunan tajam dan berkepanjangan dalam aktivitas ekonomi", "Kenaikan cepat dalam aktivitas ekonomi", "Stabilitas total dalam aktivitas ekonomi"],
+    answer: "Penurunan tajam dan berkepanjangan dalam aktivitas ekonomi"
+},
+{
+    question: "Negara mana yang mata uangnya disebut Rupiah?",
+    choices: ["Indonesia", "Malaysia", "Thailand", "Filipina"],
+    answer: "Indonesia"
+},
+{
+    question: "Apa yang dimaksud dengan inflasi deflationer?",
+    choices: ["Kenaikan umum harga-harga", "Penurunan umum harga-harga", "Stabilitas harga-harga", "Fluktuasi harga secara ekstrem"],
+    answer: "Penurunan umum harga-harga"
+},
+{
+    question: "Apa itu cryptocurrency?",
+    choices: ["Mata uang berbasis emas", "Mata uang digital", "Mata uang cetak", "Mata uang konvensional"],
+    answer: "Mata uang digital"
+},
+{
+    question: "Negara manakah yang menggunakan Franc CFA?",
+    choices: ["Maroko", "France", "Senegal", "Mesir"],
+    answer: "Senegal"
+},
+];
+
+  let questions = [...originalQuestions];
+        let currentLevel = 0;
+        let score = 5;
+        let displayedQuestions = [];
+        let currentQuestion;
+
+        function getRandomQuestion() {
+            if (questions.length === 0) {
+                questions = [...originalQuestions];
+                displayedQuestions = [];
+            }
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            const selectedQuestion = questions.splice(randomIndex, 1)[0];
+            displayedQuestions.push(selectedQuestion);
+            return selectedQuestion;
+        }
+
+        function displayQuestion() {
+            if(currentLevel > 20) {
+                localStorage.setItem("finalScore", score);
+                window.location.href = 'ekonomi3.html';
+                return;
+            }
+
+            currentQuestion = getRandomQuestion();
+            const questionEl = document.getElementById("question");
+            const choicesForm = document.getElementById("choicesForm");
+            questionEl.innerHTML = `Level ${currentLevel}: ${currentQuestion.question}`;
+
+            choicesForm.innerHTML = '';
+
+            currentQuestion.choices.forEach(choice => {
+                const label = document.createElement("label");
+                label.innerHTML = `<input type="radio" name="choice" value="${choice}"> ${choice}`;
+                choicesForm.appendChild(label);
+            });
+        }
+
+        function checkAnswer() {
+            const selectedChoice = document.querySelector('input[name="choice"]:checked');
+            if (!selectedChoice) {
+                alert("Silakan pilih jawaban.");
+                return;
+            }
+
+            if (selectedChoice.value === currentQuestion.answer) {
+                score += 5;
+                currentLevel++;
+                displayQuestion();
+            } else {
+                if (currentLevel <= 10) {
+                    alert(`Salah! Jawaban yang benar adalah "${currentQuestion.answer}". Anda kembali ke level 1 dengan skor 0.`);
+                    resetGame();
+                } else {
+                    alert(`Salah! Jawaban yang benar adalah "${currentQuestion.answer}". Anda kembali ke level 1 dengan skor 0.`);
+                    resetGame();
+                }
+            }
+        }
+
+        function skipLevel() {
+            currentLevel++;
+            if (currentLevel > 20) {
+                window.location.href = 'ekonomi3.html';
+            } else {
+                displayQuestion();
+            }
+        }
+
+        function resetGame() {
+            currentLevel = 1;
+            score = 0;
+            questions = [...originalQuestions];
+            displayedQuestions = [];
+            displayQuestion();
+        }
+
+        document.getElementById("submitBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            checkAnswer();
+        });
+
+        document.getElementById("skipBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            skipLevel();
+        });
+
+        document.getElementById("resetBtn").addEventListener("click", function(event) {
+            event.preventDefault();
+            resetGame();
+        });
+
+        window.onload = displayQuestion;
+    </script>
+</body>
+</html>

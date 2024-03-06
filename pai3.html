@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selesai</title>
+    <link rel="stylesheet" href="style-pai.css">
+</head>
+<body>
+   <video autoplay loop muted playsinline id="bgVideo">
+     <source src="woi4.mp4" type="video/mp4">
+     Browser Anda tidak mendukung tag video ini.
+   </video>
+    <div class="game-container">
+        <h2>Selamat, Anda telah menyelesaikan game ini!</h2> <p>
+            
+          </p>
+        <!-- Tombol Go Back -->
+       <button id="goBackBtn" onclick="window.location.href='halaman2.html'">Go Back</button>
+
+    <script>
+        // Mengambil skor akhir dari localStorage
+        const finalScore = localStorage.getItem("finalScore");
+        
+        // Menampilkan skor akhir
+        document.getElementById("finalScore").innerText += finalScore ? finalScore : "Skor tidak tersedia";
+
+        // Menambahkan event listener ke tombol Go Back
+        document.getElementById("goBackBtn").addEventListener("click", function() {
+            window.location.href = 'halaman2.html'; // Sesuaikan jika path ke halaman pertama Anda berbeda
+        });
+    </script>
+     <iframe src="music-player.html" style="display:none;"></iframe>
+</body>
+</html>

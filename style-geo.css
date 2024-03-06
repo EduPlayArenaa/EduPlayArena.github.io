@@ -1,0 +1,86 @@
+/* Styling Umum */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('background.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  
+}
+
+#bgVideo {
+    position: fixed; /* Gunakan fixed atau absolute tergantung kebutuhan */
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100; /* Pastikan video berada di belakang konten lain */
+    background-size: cover;
+    overflow: hidden;
+}
+
+
+.container, .game-container, #choicesForm label {
+    backdrop-filter: blur(5px); /* Menambahkan efek blur pada latar belakang */
+    border: 2px solid transparent; /* Menggunakan warna putih untuk border */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 1); /* Menambahkan efek cahaya di tepi */
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.97); /* Latar belakang gelap untuk kontras */
+    margin-bottom: 20px;
+    width: auto;
+    max-width: 80%;
+    margin: auto;
+    transition: border-color 0.3s, background-color 0.3s, opacity 0.2s, transform 0.3s; /* Menambahkan transisi untuk efek */
+}
+
+#choicesForm label:hover, button:hover {
+    opacity: 0.5; /* Membuat sedikit transparan */
+    transform: scale(1.05); /* Efek 'grow' */
+    background-color: #0056b3; /* Opsi untuk mengubah warna background saat di-hover */
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s, opacity 0.3s, transform 0.3s;
+}
+
+
+
+/* Styling Tambahan untuk Game Ekonomi */
+#choicesForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#choicesForm label {
+    margin-bottom: 10px;
+    background-color: rgba(255, 0, 0, 1); /* Latar belakang gelap untuk kontras */
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

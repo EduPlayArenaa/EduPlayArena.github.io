@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPlay Arena - Page 2</title>
+    <title>EduPlay Arena</title>
     <style>
         body, html {
             margin: 0;
@@ -11,9 +11,11 @@
             width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
+        
         #bgVideo {
             position: fixed;
             right: 0;
@@ -22,10 +24,13 @@
             min-height: 100%;
             width: auto;
             height: auto;
-            z-index: -100; /* Menempatkan video di belakang konten */
-            object-fit: cover; /* Membuat video menutupi seluruh layar tanpa distorsi */
+            z-index: -100;
+            background-size: cover;
+            overflow: hidden;
         }
         .navbar {
+            position: absolute;
+            top: 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -33,19 +38,23 @@
             background-color: #333;
             padding: 10px;
             box-sizing: border-box;
-            position: fixed;
-            top: 0;
-            z-index: 100;
         }
         .navbar .website-name {
             color: #fff;
             font-size: 20px;
             display: flex;
-            align-items: center;
+            align-items: center; /* Tambahkan ini untuk align logo dan teks */
         }
-        .navbar img {
-            height: 40px;
-            margin-right: 10px;
+        .navbar img { /* Atur ukuran logo */
+            height: 40px; /* Atur tinggi logo sesuai kebutuhan */
+            margin-right: 10px; /* Jarak antara logo dan teks */
+        }
+        .icon-play {
+            width: 180px;
+            height: 180px;
+            background: url('ikon.png') no-repeat center center;
+            background-size: cover;
+            cursor: pointer;
         }
         .social-icons {
             display: flex;
@@ -60,59 +69,12 @@
         }
         .whatsapp { background: url('whatsapp.png') no-repeat center center; }
         .youtube { background: url('youtube.png') no-repeat center center; }
-        .instagram { background: url('instagram1.png') no-repeat center center; }
-        .announcement {
-            width: 100%;
-            background-color: #fffa65;
-            color: #333;
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-            top: 40px;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        .announcement-text {
-            display: inline-block;
-            animation: marquee 10s linear infinite;
-        }
-        @keyframes marquee {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
-        .content-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 100px; /* Adjust based on navbar height */
-            padding: 20px;
-        }
-        .box {
-            width: 200px;
-            margin: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .box:hover {
-            background-color: rgba(0, 0, 0, 0.5); /* Fade to black on hover */
-        }
-        .box img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-        .box-title {
-            font-size: 18px;
-            color: #fff; /* Set box title text color */
-            background-color: #333; /* Set box title background color */
-            padding: 5px 0; /* Add padding to box title */
-            border-bottom-left-radius: 10px; /* Round bottom-left corner */
-            border-bottom-right-radius: 10px; /* Round bottom-right corner */
-        }
+        .instagram { background: url('instagram.png') no-repeat center center; }
+
         @media (max-width: 768px) {
-            .box {
-                width: 45%; /* Adjust box size on smaller screens */
+            .icon-play {
+                width: 100px;
+                height: 100px;
             }
             .social-icons div {
                 width: 25px;
@@ -122,156 +84,27 @@
                 font-size: 16px;
             }
         }
-      .footer {
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    /* position: fixed; dihapus */
-    /* bottom: 0; dihapus */
-}
-
-.footer .description,
-.footer .creator,
-.footer .logo-container {
-    flex: 1;
-    text-align: center;
-    margin: 10px;
-}
-
-.footer .description,
-.footer .creator {
-    font-size: 18px; /* Ukuran teks di footer */
-}
-
-.footer .creator a {
-    color: #fffa65;
-    text-decoration: none;
-    font-size: 20px; /* Ukuran teks link */
-}
-
-.footer img {
-    height: 80px; /* Ukuran logo di footer */
-}
-
-@media (max-width: 768px) {
-    .footer {
-        flex-direction: column;
-    }
-    .footer img {
-        height: 60px; /* Sesuaikan ukuran logo untuk layar lebih kecil */
-    }
-}
-
-
-
     </style>
 </head>
 <body>
-  <video autoplay loop muted id="bgVideo">
-    <source src="woi7.mp4" type="video/mp4">
-    Browser Anda tidak mendukung tag video.
-  </video>
+  
+  <video autoplay loop muted playsinline id="bgVideo">
+     <source src="bg2.mp4" type="video/mp4">
+     Browser Anda tidak mendukung tag video ini.
+   </video>
     <div class="navbar">
         <div class="website-name">
-            <img src="logo1.png" alt="Logo">EduPlay Arena
+            <img src="logo1.png" alt="Logo"> <!-- Tambahkan ini -->
+            EduPlay Arena
         </div>
-       <div class="social-icons">
-          <div class="whatsapp" onclick="window.location.href='https://api.whatsapp.com/send/?phone=6281515505072&text&type=phone_number&app_absent=0'"></div>
-          <div class="youtube" onclick="window.location.href='https://youtube.com/@FarisKwece?si=FlliwpMqwUv5EZIS/'"></div>
-          <div class="instagram" onclick="window.location.href='https://www.instagram.com/xyxoaz_?igsh=ODh5anJocmwwbnNh/'"></div>
-        </div>
-    </div>
-    <div class="announcement">
-        <div class="announcement-text">Selamat datang di Platform "EduPlay Arena" Sebuah Platform yang di buat langsung oleh Faris Ferdiansyah (X-6) || Platform ini akan terus Update setiap 1/2 Minggu, jadi ditunggu selalu yaa.</div>
-    </div>
-    <div class="content-container">
-        <!-- Box 1 -->
-        <div class="box" onclick="window.location.href='matematika1.html'">
-            <img src="image1.png" alt="Box 1">
-            <div class="box-title">Quiz Matematika</div>
-        </div>
-        <!-- Box 2 -->
-        <div class="box" onclick="window.location.href='senirupa1.html'">
-            <img src="image2.png" alt="Box 2">
-            <div class="box-title">Quiz Seni Rupa</div>
-        </div>
-        <div class="box" onclick="window.location.href='biologi1.html'">
-          <img src="image3.png" alt="Box 2">
-          <div class="box-title">Quiz Biologi</div>
-        </div>
-        <div class="box" onclick="window.location.href='pai1.html'">
-          <img src="image4.png" alt="Box 2">
-          <div class="box-title">Quiz Agama Islam</div>
-        </div>
-        <div class="box" onclick="window.location.href='fisika1.html'">
-          <img src="image5.png" alt="Box 2">
-          <div class="box-title">Quiz Fisika</div>
-        </div>
-        <div class="box" onclick="window.location.href='ekonomi1.html'">
-          <img src="image6.png" alt="Box 2">
-          <div class="box-title">Quiz Ekonomi</div>
-        </div>
-        <div class="box" onclick="window.location.href='sejarah1.html'">
-          <img src="image7.png" alt="Box 2">
-          <div class="box-title">Quiz Sejarah</div>
-        </div>
-        <div class="box" onclick="window.location.href='indo1.html'">
-          <img src="image8.png" alt="Box 2">
-          <div class="box-title">Quiz B. indo</div>
-        </div>
-        <div class="box" onclick="window.location.href='sosio1.html'">
-          <img src="image9.png" alt="Box 2">
-          <div class="box-title">Quiz Sosiologi</div>
-        </div>
-        <div class="box" onclick="window.location.href='geo1.html'">
-          <img src="image10.png" alt="Box 2">
-          <div class="box-title">Quiz Geografi</div>
-        </div>
-        <div class="box" onclick="window.location.href='maths.html'">
-          <img src="image11.png" alt="Box 2">
-          <div class="box-title">Mathsprint</div>
-        </div>
-          <div class="box" onclick="window.location.href='minesweeper.html'">
-            <img src="image12.png" alt="Box 2">
-            <div class="box-title">Minesweeper</div>
-          </div>
-            <div class="box" onclick="window.location.href='xoxo.html'">
-              <img src="image13.png" alt="Box 2">
-              <div class="box-title">Tic tac toe</div>
-            </div>
-              <div class="box" onclick="window.location.href='sudoku.html'">
-                <img src="image14.png" alt="Box 2">
-                <div class="box-title">Sudoku</div>
-              </div>
-                
-
-        <div class="box" onclick="window.location.href='gbk.html'">
-            <img src="image15.png" alt="Box 15">
-            <div class="box-title">Rock paper scissors</div>
+        <div class="social-icons">
+            <div class="whatsapp" onclick="window.location.href='https://api.whatsapp.com/send/?phone=6281515505072&text&type=phone_number&app_absent=0'"></div>
+            <div class="youtube" onclick="window.location.href='https://youtube.com/@FarisKwece?si=FlliwpMqwUv5EZIS/'"></div>
+            <div class="instagram" onclick="window.location.href='https://www.instagram.com/xyxoaz_?igsh=ODh5anJocmwwbnNh/'"></div>
         </div>
     </div>
-    <div class="footer">
-    <div class="description">
-        EduPlay Arena - Tempat belajar dan bermain melalui kuis interaktif.
-    </div>
-    <div class="creator">
-        ©All Rights Reserved –<a href="https://faris7566.github.io/?fbclid=PAAaa74ZVGc-S3678Dob1KHagSrJ2VoDIhjDpGpmHR86Oht_KEgVP_2_7l0ZY" target="_blank">Faris Ferdiansyah</a><br>
-    </div>
-    <div class="logo-container">
-        <img src="logo1.png" alt="Logo EduPlay Arena">
-    </div>
-</div>
-<script>
-    window.onload = function() {
-        alert("Semua soal di quiz tidak muncul di awal! jadi user harus menekan tombol skip terlebih dahulu agar soal dapat muncul🙏");
-    }
-</script>
-
+    <div class="icon-play" onclick="window.location.href='halaman2.html'"></div>
+    <iframe src="play-audio.html" frameborder="0"></iframe>
+ 
 </body>
 </html>

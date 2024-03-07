@@ -45,10 +45,10 @@ input{
     background-color: #333333;
     color: white;
 }
-button{
-    height: 70px;
-    width: 200px;
-    font-size: x-large;
+button {
+    height: 40px; /* Diperbesar dari 30px */
+    width: 120px; /* Disesuaikan; sebelumnya tidak terdefinisi dengan benar sebagai 00px */
+    font-size: large; /* Diperkecil dari x-large */
     font-weight: bold;
     background-color: red;
     border: solid 4px black;
@@ -57,52 +57,53 @@ button{
     position: absolute;
     cursor: pointer;
 }
-#start{
-    top: 26%;
-    left: 5%;
-}
-#replay{
-    top: 45%;
-    left: 5%;
-}
-#answer{
-    top: 65%;
-    left: 5%;
+
+#start {
+    top: 95%;
+    left: 100%;
 }
 
-#game_type{
+#replay {
+    top: 95%;
+    left: 20%;
+}
+
+#answer {
+    top: 95%;
+    left: 60%;
+}
+
+#game_type {
     position: absolute;
-    top: 40%;
-    left: 70%;
-    
+    top: 100%;
+    left: 100%; /* Ini mungkin keluar dari viewport, Anda mungkin perlu menyesuaikan nilai ini */
 }
 
-.label{
+.label {
     height: 15px;
     width: 15px;
     cursor: pointer;
 }
 
-#help{
+#help {
     left: 0%;
-    top: 150%;
-}
-#lives{
-    position: absolute;
-    top: 36%;
-    left: 70%;
-    color: orangered;
-    font-weight: bold;
-    font-size: x-large;
+    top: 150%; /* Ini mungkin keluar dari viewport, Anda mungkin perlu menyesuaikan nilai ini */
 }
 
-#timer{
+#lives {
+    position: absolute;
+    top: 90%;
+    left: 0%;
+    color: orangered;
+    font-weight: bold;
+    font-size: large;
+}
+
+#timer {
     top: 10%;
     position: absolute;
     left: 3%;
     font-size: x-large;
     color: white;
     font-weight: bold;
-    
 }
-

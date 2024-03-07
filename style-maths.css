@@ -288,49 +288,74 @@ button:active {
 }
 
 /* Media Query: Large Smartphone (Vertical) */
+/* Media Query: Large Smartphone (Vertical) */
 @media screen and (max-width: 500px) {
   .game-container {
-    width: 100%;
-    margin-top: 0;
+    width: 90%;
+    margin-top: 20px;
     border: none;
-  }
-
-  .selected-item {
-    top: 345px;
+    box-shadow: none;
+    height: auto;
+    background: transparent;
   }
 
   .header {
-    font-size: 1.2rem;
+    font-size: 20px; /* Diperkecil dari 24px */
+    height: 80px; /* Diperkecil dari 100px */
   }
 
-  .countdown {
-    margin-top: 60%;
-  }
-
-  .selection-container {
-    top: 100px;
+  .card {
+    height: auto; /* Ubah menjadi auto untuk ketinggian dinamis */
+    margin: 15px auto; /* Mengurangi margin */
   }
 
   .radio-container {
-    width: 93%;
-    margin: 15px;
+    margin: 15px auto; /* Mengurangi margin */
+    height: 60px; /* Diperkecil dari 75px */
   }
 
   label {
-    font-size: 1.7rem;
-  }
-  .final-time {
-    font-size: 50px;
-  }
-  .best-score {
-    font-size: 1rem;
-    left: 245px;
+    font-size: 20px; /* Diperkecil */
+    top: 15px; /* Penyesuaian posisi */
   }
 
-  .selection-footer {
-    top: 183px;
+  .best-score {
+    top: -95px; /* Penyesuaian posisi */
+    left: 5%; /* Penyesuaian posisi */
+    font-size: 16px; /* Diperkecil */
+  }
+
+  .best-score span:last-child {
+    font-size: 20px; /* Diperkecil */
+  }
+
+  .selection-footer, .item-footer {
+    height: 70px; /* Diperkecil dari 90px */
+  }
+
+  button {
+    font-size: 18px; /* Diperkecil dari 25px */
+    height: 45px; /* Diperkecil dari 50px */
+  }
+
+  .wrong, .right, .start, .play-again {
+    width: 80%; /* Diperlebar */
+  }
+
+  .countdown {
+    font-size: 60px; /* Diperkecil dari 100px */
+  }
+
+  .final-time {
+    font-size: 40px; /* Diperkecil dari 100px */
+  }
+
+  .title, .base-time, .penalty-time {
+    font-size: 18px; /* Diperkecil */
   }
 }
+
+
 
 /* Media Query: iPhone */
 @media screen and (max-width: 376px) {
@@ -338,14 +363,3 @@ button:active {
     left: 232px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-  

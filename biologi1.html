@@ -2,45 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hitung Mundur</title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-
-        .bgImage {
-            /* Gunakan gambar PNG sebagai background */
-            background-image: url('woi6.png');
-
-            /* Penuhi seluruh layar */
-            height: 100%;
-            
-            /* Pusatkan dan atur agar selalu menutupi seluruh layar */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-
-            /* Tambahkan efek blur jika diinginkan */
-            /* filter: blur(8px); */
-            /* -webkit-filter: blur(8px); */
-        }
-
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-        }
-    </style>
+    <title> Hitung Mundur</title>
+    <link rel="stylesheet" href="style-mtk.css">
 </head>
 <body>
-    <div class="bgImage">
-        <div class="container">
-            <h1 id="countdown">5</h1>
-        </div>
+   <video autoplay loop muted playsinline id="bgVideo">
+     <source src="woi6.mp4" type="video/mp4">
+     Browser Anda tidak mendukung tag video ini.
+   </video>
+    <div class="container">
+        <h1 id="countdown">5</h1>
     </div>
     <script>
         let timeLeft = 5;
@@ -52,9 +23,10 @@
 
             if (timeLeft <= 0) {
                 clearInterval(countdownTimer);
-                window.location.href = 'biologi2.html'; 
+                window.location.href = 'ekonomi2.html'; 
             }
         }, 1000);
     </script>
+     
 </body>
 </html>
